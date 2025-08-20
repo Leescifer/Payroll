@@ -46,3 +46,27 @@ exports.markAsPaid = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+
+
+const express = require("express");
+const router = express.Router();
+const payrollController = require("../controllers/payrollController");
+
+router.post("/generate", payrollController.generatePayroll);
+router.get("/", payrollController.getPayrolls);
+router.put("/:id/pay", payrollController.markAsPaid);
+
+module.exports = router;
+
+const express = require("express");
+const router = express.Router();
+const employeeController = require("../controllers/employeeController");
+
+router.post("/", employeeController.addEmployee);
+router.get("/", employeeController.getEmployees);
+router.get("/:id", employeeController.getEmployee);
+router.put("/:id", employeeController.updateEmployee);
+router.delete("/:id", employeeController.deleteEmployee);
+
+module.exports = router;

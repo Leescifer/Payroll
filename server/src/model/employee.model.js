@@ -3,28 +3,18 @@ const mongoose = require('mongoose');
 const EmployeeSchema = new mongoose.Schema({
     fullName: {
         type: String,
-        required: [
-            true,
-            'Full Name is reuired'
-        ]
+        required: [true, 'Full Name is required']
     },
     baseSalary: {
         type: Number,
-        required: [
-            true,
-            'Base Salary is reuired'
-
-        ]
+        required: [true, 'Base Salary is required']
     },
     deductions: {
         type: Number,
-        required: [
-            true,
-            'Deductions is required'
-        ]
+        required: [true, 'Deductions are required']
     }
 }, {
     timestamps: true
 });
 
-modulde.exports = mongoose.model("Employee", EmployeeSchema)
+module.exports = mongoose.model("Employee", EmployeeSchema);

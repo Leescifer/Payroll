@@ -10,10 +10,6 @@ const PayrollSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    netIncome: {
-        type: Number,
-        required: true
-    },
     grossSalary: {
         type: Number,
         required: true
@@ -29,9 +25,7 @@ const PayrollSchema = new mongoose.Schema({
     paid: {
         type: Boolean,
         default: false
-    },
-
-
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Payroll", PayrollSchema);

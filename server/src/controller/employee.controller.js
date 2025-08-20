@@ -1,9 +1,9 @@
-const Employee = require('../model/payroll.model');
+const Employee = require('../model/employee.model');
 
+// Get all employees
 exports.index = async (req, res) => {
     try {
         const employees = await Employee.find();
-
         res.status(200).json({
             status: "Success",
             data: employees
@@ -15,16 +15,15 @@ exports.index = async (req, res) => {
             message: error.message
         });
     }
-}
+};
 
+// Get single employee
 exports.show = async (req, res) => {
     try {
         const employee = await Employee.findById(req.params.id);
 
         if (!employee) {
-            res.status(404).json({
-                error: 'Employee not found'
-            });
+            return res.status(404).json({ error: 'Employee not found' });
         }
 
         res.status(200).json({
@@ -38,8 +37,9 @@ exports.show = async (req, res) => {
             message: error.message
         });
     }
-}
+};
 
+// Create employee
 exports.store = async (req, res) => {
     try {
         const newEmployee = new Employee(req.body);
@@ -49,36 +49,29 @@ exports.store = async (req, res) => {
             status: 'Success',
             data: savedEmployee
         });
-
     } catch (error) {
-
         console.error(error);
         res.status(500).json({
             status: "Internal Server Error",
             message: error.message
         });
-
     }
-}
+};
 
+// Update employee
 exports.update = async (req, res) => {
     try {
         const updatedEmployee = await Employee.findByIdAndUpdate(
             req.params.id,
             req.body,
-            {
-                new: true,
-                runValidators: true
-            }
+            { new: true, runValidators: true }
         );
 
         if (!updatedEmployee) {
-            res.status(404).json({
-                message: 'Employee not found'
-            });
+            return res.status(404).json({ message: 'Employee not found' });
         }
 
-        res.status(201).json({
+        res.status(200).json({
             status: 'Employee updated successfully',
             data: updatedEmployee
         });
@@ -89,26 +82,24 @@ exports.update = async (req, res) => {
             message: error.message
         });
     }
-}
+};
 
+// Delete employee
 exports.destroy = async (req, res) => {
     try {
         const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
         if (!deletedEmployee) {
-            return res.status(404).json({
-                message: 'Task not found'
-            });
-        };
+            return res.status(404).json({ message: 'Employee not found' });
+        }
 
         res.status(200).json({
-            message: 'Task deleted successfully',
+            message: 'Employee deleted successfully',
             data: deletedEmployee
         });
-
     } catch (error) {
         console.error(error);
         res.status(500).json({
             message: error.message
         });
     }
-}
+};
